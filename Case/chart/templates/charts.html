@@ -1,0 +1,196 @@
+\{% extends 'base.html' %}
+
+<script src="https://code.jquery.com/jquery.com/jquery-3.3.1.js">
+{% block jquery %}
+var endpoint = '/api/chart/data/'
+var Data1 = []
+var Data2 = []   
+var Data3 = []   
+var Data4 = []   
+var Data5 = []   
+var labels = [];
+
+function getData() {
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        labels = data.labels
+        Data1 = data.analog_v1
+        Data2 = data.analog_v2    
+        Data3 = data.analog_v3   
+        Data4 = data.analog_v4   
+        Data5 = data.analog_v5
+        setChart()   
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+}
+
+function setChart(){
+    var ctx1 = document.getElementById("myChart1");
+    var ctx2 = document.getElementById("myChart2");
+    var ctx3 = document.getElementById("myChart3");
+    var ctx4 = document.getElementById("myChart4");
+    var ctx5 = document.getElementById("myChart5");
+    var myChart1 = new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'analog_v1',
+            data: Data1,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 2.5,
+            lineTension: 0
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        animation : {
+            duration: 0
+        }
+    }
+});
+    var myChart2 = new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'analog_v2',
+            data: Data2,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 2.5,
+            lineTension: 0
+        }]
+    },   
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        animation: {
+            duration: 0
+        }
+    }
+});
+    var myChart3 = new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'analog_v3',
+            data: Data3,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 2.5,
+            lineTension: 0
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        animation: {
+            duration: 0
+        }
+    }
+});
+    var myChart4 = new Chart(ctx4, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'analog_v4',
+            data: Data4,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 2.5,
+            lineTension: 0
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        animation : {
+            duration: 0
+        }
+    }
+});
+    var myChart5 = new Chart(ctx5, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'analog_v5',
+            data: Data5,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+            borderWidth: 2.5,
+            lineTension: 0
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        animation : {
+            duration: 0
+        }
+    }
+});
+} 
+
+setInterval(getData, 1000);
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+        <h1 style="text-align: center;">Data Visualization</h1>
+        <div class="col-xs-4">
+            <canvas style="float: left" id="myChart1" width="400" height="300"></canvas>
+        </div>
+        <div class="col-xs-4">
+            <canvas style="float: left" id="myChart2" width="400" height="300"></canvas>
+        </div>
+        <div class="col-xs-4">
+            <canvas style="float: left"  id="myChart3" width="400" height="300"></canvas>
+        </div>
+        <div class="col-xs-4">
+            <canvas style="float: left"  id="myChart4" width="400" height="300"></canvas> 
+        </div>         
+        <div class="col-xs-4">
+            <canvas style="floaat: left" id="myChart5" width="400" height="300"></canvas>
+        </div>
+
+
+{% endblock content %}
